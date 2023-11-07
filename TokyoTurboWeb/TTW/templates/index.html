@@ -45,9 +45,10 @@
 </head>
 <body>
     <div class="container">
-        <!-- Placeholder for the dew formation result -->
+        <!-- Dew Result Display -->
         <h1>{{ dew_message }}</h1>
-        
+        <!-- Dew Result Display End -->
+
         <!-- Input form -->
         <form method="post" action="">
             {% csrf_token %}
@@ -67,6 +68,7 @@
             {% endif %}
 
         </form>
+        <!-- Input Form End -->
     </div>
 
     <script>
