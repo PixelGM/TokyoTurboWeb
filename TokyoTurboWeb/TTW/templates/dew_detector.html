@@ -128,7 +128,41 @@
 </div>
 
 <div class="container" id="main">
-    <h1>Hello World!</h1>
+    <div class="container">
+        <!-- Dew Result Display -->
+        <h1>{{ dew_message }}</h1>
+        <!-- Dew Result Display End -->
+
+        <!-- Input form -->
+        <form method="post" action="">
+            {% csrf_token %}
+
+            <div class="input-group">
+                <input type="text" name="ambientTemp" placeholder="Ambient Temperature">
+                <input type="text" name="windshieldTemp" placeholder="Windshield Temperature">
+                <input type="text" name="humidity" placeholder="Humidity (%)">
+                <button type="submit">Check Dew Formation</button>
+            </div>
+
+            <!-- Display error message if present -->
+            {% if error_message %}
+            <div class="error-message">
+                {{ error_message }}
+            </div>
+            {% endif %}
+
+        </form>
+        <!-- Input Form End -->
+    </div>
+
+    <script>
+        function checkDewFormation() {
+            // You will need to implement this function to actually check dew formation
+            // This could involve sending the input values to the server and updating the dew_message
+            alert('Functionality to check dew formation needs to be implemented.');
+        }
+    </script>
+
 </div>
 
 <script>

@@ -20,5 +20,6 @@ from django.urls import path
 from TTW import views as TTWviews
 
 urlpatterns = [
-    path('', TTWviews.dew_point_view),
+    path('', TTWviews.index),
+    path('dew_detector/', TTWviews.dew_point_view),
 ]

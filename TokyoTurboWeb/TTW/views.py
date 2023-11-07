@@ -37,11 +37,14 @@ def dew_point_view(request):
             error_message = "Please enter valid numbers for all fields."
 
     # Render the HTML template with the dew_message and error_message
-    return render(request, 'index.html', {
+    return render(request, 'dew_detector.html', {
         'dew_message': dew_message,
         'error_message': error_message
     })
 
+
+def index(request):
+     return render(request, 'index.html')
 
 # def hello_world(request):
 #     return render(request, 'index.html')
