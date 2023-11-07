@@ -1,5 +1,6 @@
 # TokyoTurboWeb/views.py
 from django.http import HttpResponse
+from django.shortcuts import render
 import math
 
 def calculate_dew_point(T_ambient, H_ambient):
@@ -24,3 +25,6 @@ def dew_point_view(request):
 
     # Return the result as an HttpResponse
     return HttpResponse("Dew formation detected." if dew_detected else "No dew formation detected.")
+
+def hello_world(request):
+    return render(request, 'index.html')
