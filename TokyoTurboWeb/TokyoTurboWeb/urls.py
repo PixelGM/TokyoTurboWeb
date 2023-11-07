@@ -19,5 +19,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('dew_point/', views.dew_point_view),
+    path('', views.dew_point_view),
 ]
