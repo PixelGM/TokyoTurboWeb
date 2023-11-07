@@ -20,5 +20,5 @@ from django.urls import path
 from TTW import views as TTWviews
 
 urlpatterns = [
-    path('', TTWviews.dew_point_view, name='hello_world'),
+    path('', TTWviews.dew_point_view, name='dew_point_view'),
 ]
