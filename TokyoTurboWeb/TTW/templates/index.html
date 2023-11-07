@@ -37,6 +37,10 @@
         button:hover {
             background-color: #0056b3;
         }
+        .error-message {
+            color: red;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -47,12 +51,21 @@
         <!-- Input form -->
         <form method="post" action="">
             {% csrf_token %}
+
             <div class="input-group">
                 <input type="text" name="ambientTemp" placeholder="Ambient Temperature">
                 <input type="text" name="windshieldTemp" placeholder="Windshield Temperature">
                 <input type="text" name="humidity" placeholder="Humidity">
                 <button type="submit">Check Dew Formation</button>
             </div>
+
+            <!-- Display error message if present -->
+            {% if error_message %}
+            <div class="error-message">
+                {{ error_message }}
+            </div>
+            {% endif %}
+
         </form>
     </div>
 
