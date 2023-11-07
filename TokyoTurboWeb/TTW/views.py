@@ -23,8 +23,12 @@ def dew_point_view(request):
     # Perform the dew detection
     dew_detected = dew_formation_detector(T_ambient, T_windshield, H_ambient)
 
-    # Return the result as an HttpResponse
-    return HttpResponse("Dew formation detected." if dew_detected else "No dew formation detected.")
+    # Prepare the message
+    dew_message = "Dew formation detected." if dew_detected else "No dew formation detected."
 
-def hello_world(request):
-    return render(request, 'index.html')
+    # Render the index.html template with the dew_message context
+    return render(request, 'index.html', {'dew_message': dew_message})
+
+
+# def hello_world(request):
+#     return render(request, 'index.html')

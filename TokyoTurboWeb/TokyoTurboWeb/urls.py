@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-#from TTW import views
-from TTW.views import hello_world
+
+from TTW import views as TTWviews
 
 urlpatterns = [
-    path('', hello_world, name='hello_world'),
+    path('', TTWviews.dew_point_view, name='hello_world'),
 ]
