@@ -9,14 +9,59 @@
             height: 100%;
             margin: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
         }
+        .container {
+            text-align: center;
+        }
+        .input-group {
+            margin: 10px 0;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
-    <!-- Placeholder for the dew formation result -->
-    <h1>{{ dew_message }}</h1>
+    <div class="container">
+        <!-- Placeholder for the dew formation result -->
+        <h1>{{ dew_message }}</h1>
+        
+        <!-- Input form -->
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" name="ambientTemp" placeholder="Ambient Temperature">
+                <input type="text" name="windshieldTemp" placeholder="Windshield Temperature">
+                <input type="text" name="humidity" placeholder="Humidity">
+                <button type="submit">Check Dew Formation</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function checkDewFormation() {
+            // You will need to implement this function to actually check dew formation
+            // This could involve sending the input values to the server and updating the dew_message
+            alert('Functionality to check dew formation needs to be implemented.');
+        }
+    </script>
 </body>
 </html>
