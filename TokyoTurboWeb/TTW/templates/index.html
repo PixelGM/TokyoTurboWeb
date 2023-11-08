@@ -1,166 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dew Formation Detection</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <style>
-        /* Sidebar styles */
-        .sidebar {
-            height: 100%;
-            width: 0; /* Start with the sidebar closed */
-            position: fixed;
-            z-index: 2; /* Ensure sidebar is above other content */
-            top: 0;
-            left: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-        }
+{% extends "base.html" %}
 
-        .sidebar a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
+{% block title %} Tokyo Turbo {% endblock %}
 
-        .sidebar a:hover {
-            color: #f1f1f1;
-        }
+{% block sidebar %} 
+    <a href="{% url '' %}">Home</a>
+    <a href="{% url 'dew_detector' %}">Dew Detector</a>
+    <a href="#">Prototype3</a>
+    <a href="#">Prototype4</a>
+{% endblock %}
 
-        .sidebar .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-
-        /* Sidebar Button Style */
-        .openbtn {
-            font-size: 20px;
-            cursor: pointer;
-            background-color: #111;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            position: fixed; /* Fixed position */
-            top: 10px; /* Adjustable margin from the top */
-            left: 10px; /* Adjustable margin from the left */
-            z-index: 3; /* Above the sidebar */
-        }
-        
-
-        .openbtn:hover {
-            background-color: #444;
-        }
-
-        /* Adjust content when sidebar is displayed */
-        .container {
-            transition: margin-left .5s;
-            padding: 16px;
-            margin-left: 1; /* Adjusted for the sidebar */
-        }
-
-        /* Media query for smaller screens */
-        @media screen and (max-height: 450px) {
-          .sidebar {padding-top: 15px;}
-          .sidebar a {font-size: 18px;}
-        }
-        
-        /* Main content styles */
-        html, body {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-        }
-        /* h1, h2 {
-            margin-top: 10px;
-            margin-bottom: 20px;
-        } */
-        h1 {
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-        h2 {
-            margin-top: 10px;
-            margin-bottom: 0px;
-        }
-        h3 {
-            margin-top: 0px;
-            margin-bottom: 0px;
-        }
-        .container {
-            text-align: center;
-        }
-        .input-group {
-            margin: 10px 0;
-        }
-        input[type="text"] {
-            padding: 10px;
-            margin-right: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .error-message {
-            color: red;
-            margin: 10px 0;
-        }
-    </style>
-</head>
-<body>
-
-<button class="openbtn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-
-<div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
-  <!-- Add sidebar links here -->
-  <a href="#">Home</a>
-  <a href="dew_detector/">Dew Detector</a>
-  <a href="#">Prototype3</a>
-  <a href="#">Prototype4</a>
-</div>
-
-<div class="container" id="main">
+{% block content %}
     <h1>東京ターボ</h1>
     <h1>Welcome to Tokyo Turbo!</h1>
     <h2>Autonomous Car System</h2>
     <h3>自動運転車システム</h3>
-</div>
-
-<script>
-    function toggleSidebar() {
-        var sidebar = document.getElementById("mySidebar");
-        var main = document.getElementById("main");
-        if (sidebar.style.width === "250px") {
-            sidebar.style.width = "0";
-            main.style.marginLeft= "0";
-        } else {
-            sidebar.style.width = "250px";
-            main.style.marginLeft = "250px";
-        }
-    }
-</script>
-
-</body>
-</html>
+{% endblock %}
