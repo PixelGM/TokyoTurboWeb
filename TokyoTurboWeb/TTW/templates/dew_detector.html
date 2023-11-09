@@ -16,7 +16,7 @@
                 <input type="text" id="ambientTemp" name="ambientTemp" placeholder="Ambient Temperature">
                 <input type="text" id="windshieldTemp" name="windshieldTemp" placeholder="Windshield Temperature">
                 <input type="text" id="humidity" name="humidity" placeholder="Humidity (%)">
-                <button type="submit">Check Dew Formation</button>
+                <button type="button" onclick="checkDewFormation()">Check Dew Formation</button>
             </div>
 
             <!-- Display error message if present -->
@@ -24,46 +24,32 @@
 
         </form>
         <!-- Input Form End -->
-
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('dew_form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                checkDewFormation();
-            });
-        });
-    
         function checkDewFormation() {
-            console.log('Checking dew formation...'); // For debugging
             var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
             var ambientTemp = document.getElementById('ambientTemp').value;
             var windshieldTemp = document.getElementById('windshieldTemp').value;
             var humidity = document.getElementById('humidity').value;
-    
-            fetch('/dew_detector/', {
+
+            fetch('/dew_detector/', { // Replace with the actual URL to your view
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'X-CSRFToken': csrftoken
                 },
-                body: `ambientTemp=${encodeURIComponent(ambientTemp)}&windshieldTemp=${encodeURIComponent(windshieldTemp)}&humidity=${encodeURIComponent(humidity)}`
+                body: `ambientTemp=${ambientTemp}&windshieldTemp=${windshieldTemp}&humidity=${humidity}`
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data); // For debugging
                 if (!data.error) {
                     document.getElementById('dew_message').innerText = data.dew_message;
                 } else {
                     document.getElementById('error_message').innerText = data.error_message;
                 }
             })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            .catch(error => console.error('Error:', error));
         }
     </script>
-    
-    
 {% endblock %}
