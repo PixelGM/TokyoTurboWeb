@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import math
 
 # Function to calculate the dew point
@@ -17,30 +17,22 @@ def dew_formation_detector(T_ambient, T_windshield, H_ambient):
 
 # View to handle dew point detection
 def dew_point_view(request):
-    dew_message = ""
-    error_message = ""
-
     if request.method == 'POST':
         try:
-            # Get values from POST request and convert them to float
             T_ambient = float(request.POST.get('ambientTemp', ''))
             T_windshield = float(request.POST.get('windshieldTemp', ''))
             H_ambient = float(request.POST.get('humidity', ''))
 
-            # Perform the dew detection
             dew_detected = dew_formation_detector(T_ambient, T_windshield, H_ambient)
-
-            # Set the result message
             dew_message = "Dew formation detected." if dew_detected else "No dew formation detected."
-        except ValueError:
-            # Set the error message if conversion to float fails
-            error_message = "Please enter valid numbers for all fields."
 
-    # Render the HTML template with the dew_message and error_message
-    return render(request, 'dew_detector.html', {
-        'dew_message': dew_message,
-        'error_message': error_message
-    })
+            return JsonResponse({'dew_message': dew_message, 'error': False})
+        except ValueError:
+            return JsonResponse({'error_message': "Please enter valid numbers for all fields.", 'error': True})
+
+    # If not POST request, just render the template
+    return render(request, 'dew_detector.html')
+
 
 
 def index(request):

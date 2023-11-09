@@ -5,36 +5,65 @@
 {% block content %}
     <div class="container">
         <!-- Dew Result Display -->
-        <h1>{{ dew_message }}</h1>
+        <h1 id="dew_message"></h1>
         <!-- Dew Result Display End -->
 
         <!-- Input form -->
-        <form method="post" action="">
+        <form id="dew_form" action="" method="post">
             {% csrf_token %}
 
             <div class="input-group">
-                <input type="text" name="ambientTemp" placeholder="Ambient Temperature">
-                <input type="text" name="windshieldTemp" placeholder="Windshield Temperature">
-                <input type="text" name="humidity" placeholder="Humidity (%)">
+                <input type="text" id="ambientTemp" name="ambientTemp" placeholder="Ambient Temperature">
+                <input type="text" id="windshieldTemp" name="windshieldTemp" placeholder="Windshield Temperature">
+                <input type="text" id="humidity" name="humidity" placeholder="Humidity (%)">
                 <button type="submit">Check Dew Formation</button>
             </div>
 
             <!-- Display error message if present -->
-            {% if error_message %}
-            <div class="error-message">
-                {{ error_message }}
-            </div>
-            {% endif %}
+            <div class="error-message" id="error_message"></div>
 
         </form>
         <!-- Input Form End -->
+
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('dew_form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                checkDewFormation();
+            });
+        });
+    
         function checkDewFormation() {
-            // You will need to implement this function to actually check dew formation
-            // This could involve sending the input values to the server and updating the dew_message
-            alert('Functionality to check dew formation needs to be implemented.');
+            console.log('Checking dew formation...'); // For debugging
+            var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            var ambientTemp = document.getElementById('ambientTemp').value;
+            var windshieldTemp = document.getElementById('windshieldTemp').value;
+            var humidity = document.getElementById('humidity').value;
+    
+            fetch('/dew_detector/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrftoken
+                },
+                body: `ambientTemp=${encodeURIComponent(ambientTemp)}&windshieldTemp=${encodeURIComponent(windshieldTemp)}&humidity=${encodeURIComponent(humidity)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // For debugging
+                if (!data.error) {
+                    document.getElementById('dew_message').innerText = data.dew_message;
+                } else {
+                    document.getElementById('error_message').innerText = data.error_message;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
     </script>
+    
+    
 {% endblock %}
