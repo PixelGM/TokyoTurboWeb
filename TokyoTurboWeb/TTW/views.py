@@ -27,8 +27,9 @@ def dew_point_view(request):
             dew_message = "Dew formation detected." if dew_detected else "No dew formation detected."
 
             return JsonResponse({'dew_message': dew_message, 'error': False})
-        except ValueError:
-            return JsonResponse({'error_message': "Please enter valid numbers for all fields.", 'error': True})
+        except ValueError as e:
+            # Error Message for 3 valid/invalid variables HERE!, but since we don't need need, we don't print anything
+            return JsonResponse({'error_message': "", 'error': True})
 
     # If not POST request, just render the template
     return render(request, 'dew_detector.html')

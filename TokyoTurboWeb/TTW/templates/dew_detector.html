@@ -13,10 +13,9 @@
             {% csrf_token %}
 
             <div class="input-group">
-                <input type="text" id="ambientTemp" name="ambientTemp" placeholder="Ambient Temperature">
-                <input type="text" id="windshieldTemp" name="windshieldTemp" placeholder="Windshield Temperature">
-                <input type="text" id="humidity" name="humidity" placeholder="Humidity (%)">
-                <button type="button" onclick="checkDewFormation()">Check Dew Formation</button>
+                <input type="text" id="ambientTemp" name="ambientTemp" placeholder="Ambient Temperature" oninput="checkDewFormation()">
+                <input type="text" id="windshieldTemp" name="windshieldTemp" placeholder="Windshield Temperature" oninput="checkDewFormation()">
+                <input type="text" id="humidity" name="humidity" placeholder="Humidity (%)" oninput="checkDewFormation()">
             </div>
 
             <!-- Display error message if present -->
@@ -43,13 +42,17 @@
             })
             .then(response => response.json())
             .then(data => {
+                document.getElementById('error_message').innerText = '';
                 if (!data.error) {
                     document.getElementById('dew_message').innerText = data.dew_message;
                 } else {
                     document.getElementById('error_message').innerText = data.error_message;
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('error_message').innerText = 'An error occurred while processing your request.';
+            });
         }
     </script>
 {% endblock %}
