@@ -134,12 +134,15 @@
 
 <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
-  <!-- Add sidebar links here -->
-  {% block sidebar %} {% endblock %}
+  <!-- Add sidebar links HERE! -->
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'ndew_detector' %}">Dew Detector</a>
+    <a href="#">Prototype3</a>
+    <a href="#">Prototype4</a>
 </div>
 
 <div class="container" id="main">
-    <!-- Template Insert here -->
+    <!-- Template Insert HERE! -->
     {% block content %} {% endblock %}
 </div>
 
