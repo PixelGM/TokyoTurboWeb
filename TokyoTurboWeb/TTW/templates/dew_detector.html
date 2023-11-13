@@ -19,12 +19,21 @@
         
         .input-container {
             display: flex;
-            flex-direction: column; /* Aligns the label and input vertically */
+            flex-direction: column-reverse; /* Aligns the input and h4 vertically in reverse order */
             margin-right: 10px; /* Adds some space between the containers */
         }
         
-        .input-container label {
-            margin-bottom: 5px; /* Adds some space between the label and input */
+        .input-container h4 {
+            margin-top: 5px; /* Adds some space between the input and h4 */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    
+        .fade-in {
+            animation: fadeIn 1s;
         }
     </style>
 
@@ -82,12 +91,28 @@
             .then(data => {
                 document.getElementById('error_message').innerText = '';
                 if (!data.error) {
-                    document.getElementById('dew_message').innerText = data.dew_message;
-                    document.getElementById('dew_message_jp').innerText = translateToJapanese(data.dew_message);
-                    // Play sound if dew_message is not null and different from the last message
+                    var dewMessageElement = document.getElementById('dew_message');
+                    var dewMessageJpElement = document.getElementById('dew_message_jp');
+        
+                    dewMessageElement.innerText = data.dew_message;
+                    dewMessageJpElement.innerText = translateToJapanese(data.dew_message);
+        
+                    // Check if the message has changed
                     if (data.dew_message !== null && data.dew_message !== lastDewMessage) {
+                        // Play sound
                         document.getElementById('dewSound').play();
+        
+                        // Add animation class
+                        dewMessageElement.classList.add('fade-in');
+                        dewMessageJpElement.classList.add('fade-in');
+        
+                        // Remove the class after the animation ends
+                        setTimeout(() => {
+                            dewMessageElement.classList.remove('fade-in');
+                            dewMessageJpElement.classList.remove('fade-in');
+                        }, 1000); // 1000 ms = 1 second, same as animation duration
                     }
+        
                     // Update the last message
                     lastDewMessage = data.dew_message;
                 } else {
