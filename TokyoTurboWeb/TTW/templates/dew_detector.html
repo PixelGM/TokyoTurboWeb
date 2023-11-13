@@ -12,6 +12,22 @@
     </style>
     <!-- Style Overide End -->
 
+    <style>
+        .input-group {
+            display: flex; /* Aligns the input-container divs horizontally */
+        }
+        
+        .input-container {
+            display: flex;
+            flex-direction: column; /* Aligns the label and input vertically */
+            margin-right: 10px; /* Adds some space between the containers */
+        }
+        
+        .input-container label {
+            margin-bottom: 5px; /* Adds some space between the label and input */
+        }
+    </style>
+
     {% load static %}
     <div class="container">
         <audio id="dewSound" src="{% static '短い音-プイ.mp3' %}" type="audio/mp3"></audio>
@@ -23,17 +39,25 @@
         <!-- Input form -->
         <form id="dew_form" action="" method="post">
             {% csrf_token %}
-
+        
             <div class="input-group">
-                <input type="text" id="ambientTemp" name="ambientTemp" placeholder="Ambient Temperature" oninput="checkDewFormation()">
-                <input type="text" id="windshieldTemp" name="windshieldTemp" placeholder="Windshield Temperature" oninput="checkDewFormation()">
-                <input type="text" id="humidity" name="humidity" placeholder="Humidity (%)" oninput="checkDewFormation()">
+                <div class="input-container">
+                    <h4>Ambient Temperature</h4>
+                    <input type="text" id="ambientTemp" name="ambientTemp" placeholder="Ambient Temperature" oninput="checkDewFormation()">
+                </div>
+                <div class="input-container">
+                    <h4>Windshield Temperature</h4>
+                    <input type="text" id="windshieldTemp" name="windshieldTemp" placeholder="Windshield Temperature" oninput="checkDewFormation()">
+                </div>
+                <div class="input-container">
+                    <h4>Humidity (%)</h4>
+                    <input type="text" id="humidity" name="humidity" placeholder="Humidity (%)" oninput="checkDewFormation()">
+                </div>
             </div>
-
+        
             <!-- Display error message if present -->
             <div class="error-message" id="error_message"></div>
-
-        </form>
+        </form>        
         <!-- Input Form End -->
     </div>
 
