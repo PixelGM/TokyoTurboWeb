@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %} Tokyo Turbo {% endblock %}
+
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<div class="login-container">
+    <h2>Login Form</h2>
+    <form action="/submit-login" method="post">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="psw">Password:</label>
+            <input type="password" id="psw" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="inviteCode">Invite Code:</label>
+            <input type="text" id="inviteCode" name="inviteCode" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</div>
+{% endblock %}

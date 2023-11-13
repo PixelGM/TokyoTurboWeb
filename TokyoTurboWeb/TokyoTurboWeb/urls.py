@@ -22,4 +22,5 @@ from TTW import views as TTWviews
 urlpatterns = [
     path('', TTWviews.index, name='index'),
     path('dew_detector/', TTWviews.dew_point_view, name='ndew_detector'),
+    path('login/', TTWviews.login, name='login'),
 ]

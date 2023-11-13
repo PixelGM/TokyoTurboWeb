@@ -39,5 +39,8 @@ def dew_point_view(request):
 def index(request):
      return render(request, 'index.html')
 
+def login(request):
+     return render(request, 'login.html')
+
 # def hello_world(request):
 #     return render(request, 'index.html')
