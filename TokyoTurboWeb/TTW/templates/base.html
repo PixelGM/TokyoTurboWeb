@@ -64,7 +64,6 @@
         .container {
             transition: margin-left .5s;
             padding: 16px;
-            margin-left: 1; /* Adjusted for the sidebar */
         }
 
         /* Media query for smaller screens */
@@ -149,13 +148,10 @@
 <script>
     function toggleSidebar() {
         var sidebar = document.getElementById("mySidebar");
-        var main = document.getElementById("main");
         if (sidebar.style.width === "250px") {
             sidebar.style.width = "0";
-            main.style.marginLeft= "0";
         } else {
             sidebar.style.width = "250px";
-            main.style.marginLeft = "250px";
         }
     }
 </script>
