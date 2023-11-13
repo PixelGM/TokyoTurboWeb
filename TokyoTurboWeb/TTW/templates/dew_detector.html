@@ -3,11 +3,21 @@
 {% block title %} 露検知器 | Dew Detector {% endblock %}
 
 {% block content %}
+    <!-- Style Overide -->
+    <style>
+        h1 {
+            margin-top: 10px;
+            margin-bottom: 2px;
+        }
+    </style>
+    <!-- Style Overide End -->
+
     {% load static %}
     <div class="container">
         <audio id="dewSound" src="{% static '短い音-プイ.mp3' %}" type="audio/mp3"></audio>
         <!-- Dew Result Display -->
         <h1 id="dew_message"></h1>
+        <h3 id="dew_message_jp"></h3>
         <!-- Dew Result Display End -->
 
         <!-- Input form -->
@@ -35,7 +45,7 @@
             var ambientTemp = document.getElementById('ambientTemp').value;
             var windshieldTemp = document.getElementById('windshieldTemp').value;
             var humidity = document.getElementById('humidity').value;
-
+    
             fetch('/dew_detector/', { // URL
                 method: 'POST',
                 headers: {
@@ -49,6 +59,7 @@
                 document.getElementById('error_message').innerText = '';
                 if (!data.error) {
                     document.getElementById('dew_message').innerText = data.dew_message;
+                    document.getElementById('dew_message_jp').innerText = translateToJapanese(data.dew_message);
                     // Play sound if dew_message is not null and different from the last message
                     if (data.dew_message !== null && data.dew_message !== lastDewMessage) {
                         document.getElementById('dewSound').play();
@@ -64,5 +75,15 @@
                 document.getElementById('error_message').innerText = 'An error occurred while processing your request.';
             });
         }
-    </script>
+    
+        function translateToJapanese(message) {
+            const translations = {
+                "Dew formation detected.": "結露が確認された。",
+                "No dew formation detected.": "露の形成は見られなかった。",
+                // Add more translations as needed
+            };
+        
+            return translations[message] || "Translation not available";
+        }
+    </script>    
 {% endblock %}
