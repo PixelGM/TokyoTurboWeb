@@ -3,7 +3,9 @@
 {% block title %} Dew Detector {% endblock %}
 
 {% block content %}
+    {% load static %}
     <div class="container">
+        <audio id="dewSound" src="{% static '短い音-プイ.mp3' %}" type="audio/mp3"></audio>
         <!-- Dew Result Display -->
         <h1 id="dew_message"></h1>
         <!-- Dew Result Display End -->
@@ -32,7 +34,7 @@
             var windshieldTemp = document.getElementById('windshieldTemp').value;
             var humidity = document.getElementById('humidity').value;
 
-            fetch('/dew_detector/', { // Replace with the actual URL to your view
+            fetch('/dew_detector/', { // URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -45,6 +47,10 @@
                 document.getElementById('error_message').innerText = '';
                 if (!data.error) {
                     document.getElementById('dew_message').innerText = data.dew_message;
+                    // Play sound if dew_message is not null
+                    if (data.dew_message !== null) {
+                        document.getElementById('dewSound').play();
+                    }
                 } else {
                     document.getElementById('error_message').innerText = data.error_message;
                 }
