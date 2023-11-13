@@ -28,6 +28,8 @@
     </div>
 
     <script>
+        var lastDewMessage = null;
+
         function checkDewFormation() {
             var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
             var ambientTemp = document.getElementById('ambientTemp').value;
@@ -47,10 +49,12 @@
                 document.getElementById('error_message').innerText = '';
                 if (!data.error) {
                     document.getElementById('dew_message').innerText = data.dew_message;
-                    // Play sound if dew_message is not null
-                    if (data.dew_message !== null) {
+                    // Play sound if dew_message is not null and different from the last message
+                    if (data.dew_message !== null && data.dew_message !== lastDewMessage) {
                         document.getElementById('dewSound').play();
                     }
+                    // Update the last message
+                    lastDewMessage = data.dew_message;
                 } else {
                     document.getElementById('error_message').innerText = data.error_message;
                 }
