@@ -3,8 +3,96 @@
 {% block title %} Tokyo Turbo {% endblock %}
 
 {% block content %}
+    <style>
+        body {
+            background: white;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            font-family: Arial, sans-serif;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .glitch-container {
+            position: relative;
+            display: inline-block; /* Makes the container inline */
+            font-size: inherit; /* Inherits the font size from h1 */
+        }
+        
+        .glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        @keyframes clip {
+            0% {
+                clip-path: polygon(0 100%, 100% 100%, 100% 120%, 0 120%);
+            }
+            100% {
+                clip-path: polygon(0 -20%, 100% -20%, 100% 0%, 0 0%);
+            }
+        }
+
+        @keyframes glitch1 {
+            0%, 100% { 
+                color: white; 
+                opacity: 1; 
+                text-shadow: none; 
+            }
+            20%, 40%, 60%, 80% { 
+                color: #ffffff; 
+                opacity: 0.8; 
+                text-shadow: 0 0 10px #ffffff; 
+            }
+        }
+    </style>
+
+
+
+    <!-- HTML -->
     <h1>東京ターボ・プロトタイプ</h1>
-    <h1>Welcome to Tokyo Turbo!</h1>
+    <h1>Welcome to <span class="glitch-container">Tokyo Turbo
+        <div class="glitch">
+            <div class="line">Tokyo Turbo</div>
+            <div class="line">Tokyo Turbo</div>
+            <div class="line">Tokyo Turbo</div>
+            <div class="line">Tokyo Turbo</div>
+            <div class="line">Tokyo Turbo</div>
+            <div class="line">Tokyo Turbo</div>
+            <div class="line">Tokyo Turbo</div>
+            <div class="line">Tokyo Turbo</div>
+        </div>
+    </span>!</h1>    
     <h2>Autonomous Car System</h2>
     <h3>自動運転車システム</h3>
+    <!-- HTML End -->
+
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var glitchElements = document.querySelectorAll('.glitch .line');
+        
+            glitchElements.forEach(function(elem, index) {
+                var animationDelay = (index + 1) * -300;
+                var animationDuration = 500;
+                var animationIterationCount = 'infinite';
+        
+                elem.style.animation = `clip 3000ms ${animationDelay}ms linear ${animationIterationCount}, glitch${index + 1} ${animationDuration}ms linear ${animationIterationCount}`;
+            });
+        });        
+    </script>
 {% endblock %}
