@@ -35,6 +35,23 @@
         .fade-in {
             animation: fadeIn 1s;
         }
+
+        /* Responsive styles for smaller screens */
+    @media (max-width: 768px) {
+        .input-group {
+            flex-direction: column; /* Stacks the input-container divs vertically */
+        }
+
+        .input-container {
+            width: 100%; /* Full width for smaller screens */
+            margin-right: 0; /* Remove right margin */
+            margin-bottom: 10px; /* Add bottom margin for spacing */
+        }
+
+        .input-container input {
+            width: calc(100% - 20px); /* Adjust width to account for padding/margins */
+        }
+    }
     </style>
 
     {% load static %}
